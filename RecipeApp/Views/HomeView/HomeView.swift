@@ -9,27 +9,21 @@ import SwiftUI
 import CoreData
 
 struct HomeView: View {
-    @StateObject var homeViewModel = HomeViewModel(networkManager: NetworkManager())
-    @Environment(\.managedObjectContext) private var viewContext
+    @StateObject var homeViewModel: HomeViewModel
 
     var body: some View {
         List {
-            
+            ForEach(homeViewModel.allRecipes, id: \.id) {recipe in
+                Text("\(recipe.id). \(recipe.name)")
+            }
         }
         .task {
             await homeViewModel.getAllRecipes()
-            printRecipes()
-        }
-    }
-    
-    private func printRecipes() {
-        print(homeViewModel.allRecipes.count)
-        for recipe in homeViewModel.allRecipes {
-            print(recipe)
+            print(homeViewModel.allRecipes.count)
         }
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(homeViewModel: HomeViewModel(networkManager: NetworkManager()))
 }

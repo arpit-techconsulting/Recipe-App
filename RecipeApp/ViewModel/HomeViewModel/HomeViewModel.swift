@@ -15,6 +15,7 @@ class HomeViewModel: ObservableObject {
         self.networkManager = networkManager
     }
     
+    @MainActor
     func getAllRecipes() async {
         do {
             let allRecipes = try await networkManager.apiCall(modelType: DataModel.self, apiUrl: "https://dummyjson.com/recipes?limit=0&skip=0")

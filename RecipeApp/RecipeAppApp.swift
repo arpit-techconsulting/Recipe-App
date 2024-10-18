@@ -13,7 +13,7 @@ struct RecipeAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            HomeView(homeViewModel: HomeViewModel(networkManager: NetworkManager()))
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
