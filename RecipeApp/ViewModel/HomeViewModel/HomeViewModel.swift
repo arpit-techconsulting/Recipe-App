@@ -7,6 +7,20 @@
 
 import Foundation
 
-class HomeViewModel {
+class HomeViewModel: ObservableObject {
+    let networkManager: NetworkManagerActions
+    @Published var allRecipes: [Recipes] = []
     
+    init(networkManager: NetworkManagerActions) {
+        self.networkManager = networkManager
+    }
+    
+    func getAllRecipes() async {
+        do {
+            let allRecipes = try await networkManager.apiCall(modelType: DataModel.self, apiUrl: "https://dummyjson.com/recipes?limit=0&skip=0")
+            self.allRecipes = allRecipes.recipes
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
