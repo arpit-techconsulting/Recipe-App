@@ -29,6 +29,16 @@
 		2BFBA4FF2CC2A77100A72EC8 /* RecipeAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		2BE80E992CC6A4FB00D3C506 /* Exceptions for "RecipeAppTests" folder in "RecipeApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MockResponse.json,
+			);
+			target = 2BFBA4DF2CC2A76F00A72EC8 /* RecipeApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2BFBA4E22CC2A76F00A72EC8 /* RecipeApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -37,6 +47,9 @@
 		};
 		2BFBA4F82CC2A77100A72EC8 /* RecipeAppTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2BE80E992CC6A4FB00D3C506 /* Exceptions for "RecipeAppTests" folder in "RecipeApp" target */,
+			);
 			path = RecipeAppTests;
 			sourceTree = "<group>";
 		};
