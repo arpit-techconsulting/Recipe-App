@@ -25,5 +25,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(homeViewModel: HomeViewModel(networkManager: NetworkManager()))
+    HomeView(homeViewModel: HomeViewModel())
 }

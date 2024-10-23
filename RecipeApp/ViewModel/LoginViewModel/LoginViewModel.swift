@@ -10,4 +10,8 @@ import SwiftUI
 class LoginViewModel: ObservableObject {
     @Published var userName: String = ""
     @Published var password: String = ""
+    
+    func loginBtnClicked() {
+        print("Login Button clicked")
+    }
 }
