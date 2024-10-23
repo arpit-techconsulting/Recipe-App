@@ -9,11 +9,12 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
+    @State var showPassword: Bool = true
     var body: some View {
         VStack {
             Spacer()
             
-            VStack {
+            VStack(alignment: .leading, spacing: 30) {
                 TextField(text: $loginViewModel.userName, prompt: Text( "Username").foregroundStyle(.blue)) {
                     Text("Username")
                 }
@@ -25,13 +26,33 @@ struct LoginView: View {
                         .stroke(.blue, lineWidth: 2)
                 }
                 
-                SecureField(text: $loginViewModel.password, prompt: Text( "Password").foregroundStyle(.red)) {
-                    Text("Password")
-                }
-                .padding(10)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(.red, lineWidth: 2)
+                HStack {
+                    
+                    Group {
+                        if showPassword {
+                            TextField(text: $loginViewModel.password, prompt: Text("Password").foregroundStyle(.red)) {
+                                Text("Password")
+                            }
+                        } else {
+                            SecureField(text: $loginViewModel.password, prompt: Text( "Password").foregroundStyle(.red)) {
+                                Text("Password")
+                            }
+                        }
+                    }
+                    .padding(10)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.red, lineWidth: 2)
+                    }
+                    
+                    Button {
+                        showPassword.toggle()
+                    } label: {
+                        Image(systemName: showPassword ? "eye.slash" : "eye")
+                            .foregroundStyle(.red)
+                    }
+                    .padding(10)
+                    .border(.red)
                 }
             }
             Spacer()

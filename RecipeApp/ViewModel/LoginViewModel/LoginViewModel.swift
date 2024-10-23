@@ -12,6 +12,7 @@ class LoginViewModel: ObservableObject {
     @Published var password: String = ""
     
     func loginBtnClicked() {
-        print("Login Button clicked")
+        print(userName, password)
+//        print("Login Button clicked")
     }
 }
