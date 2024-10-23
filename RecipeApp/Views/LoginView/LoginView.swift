@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
-    @State var showPassword: Bool = true
+    @State var showPassword: Bool = false
     var body: some View {
         VStack {
             Spacer()
@@ -48,7 +48,7 @@ struct LoginView: View {
                     Button {
                         showPassword.toggle()
                     } label: {
-                        Image(systemName: showPassword ? "eye.slash" : "eye")
+                        Image(systemName: showPassword ? "eye" : "eye.slash")
                             .foregroundStyle(.red)
                     }
                     .padding(10)
