@@ -25,5 +25,8 @@ struct HomeView: View {
 }
 
 #Preview {
+    let persistenceController = PersistenceController.shared
+    
     HomeView(homeViewModel: HomeViewModel())
+        .environment(\.managedObjectContext, persistenceController.container.viewContext)
 }
