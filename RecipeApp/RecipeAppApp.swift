@@ -14,6 +14,7 @@ struct RecipeAppApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView(loginViewModel: LoginViewModel())
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

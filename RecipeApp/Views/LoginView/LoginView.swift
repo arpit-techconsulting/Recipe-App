@@ -11,6 +11,7 @@ struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
     @State var showPassword: Bool = false
     @State var isLoggedIn: Bool = false
+    @State var showSignUp: Bool = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -57,6 +58,22 @@ struct LoginView: View {
                         .border(.red)
                     }
                 }
+                
+                Button {
+                    showSignUp = true
+                } label: {
+                    Text("Don't Have an Account? Sign Up")
+                        .font(.subheadline)
+                        .font(.footnote)
+                        .foregroundStyle(.blue)
+                        .underline()
+                }
+                .padding(.top, 10)
+                
+                NavigationLink(destination: SignUpView(signUpViewModel: SignUpViewModel()), isActive: $showSignUp) {
+                    EmptyView()
+                }
+                
                 Spacer()
                 
                 Button {
