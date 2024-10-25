@@ -12,4 +12,8 @@ class SignUpViewModel: ObservableObject {
     @Published var fName: String = ""
     @Published var lName: String = ""
     @Published var password: String = ""
+    
+    func signUpBtnClicked() {
+//        print("Sign Up button clicked")
+    }
 }

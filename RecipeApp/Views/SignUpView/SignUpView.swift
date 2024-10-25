@@ -10,6 +10,8 @@ import SwiftUI
 struct SignUpView: View {
     @ObservedObject var signUpViewModel: SignUpViewModel
     @State var showPassword: Bool = false
+    @State var showLogin: Bool = false
+    @State var isSignedUp: Bool = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -72,7 +74,10 @@ struct SignUpView: View {
                                 .foregroundStyle(.red)
                         }
                         .padding(10)
-                        .border(.red)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.red, lineWidth: 2)
+                        }
                         
                     }
                     .padding(.trailing, 10)
@@ -88,6 +93,42 @@ struct SignUpView: View {
                             .stroke(.red, lineWidth: 2)
                     }
                     .padding(10)
+                }
+                
+                Button {
+                    showLogin = true
+                } label: {
+                    Text("Already Have an Account? Login")
+                        .font(.subheadline)
+                        .font(.footnote)
+                        .foregroundStyle(.blue)
+                        .underline()
+                }
+                
+                NavigationLink(destination: LoginView(loginViewModel: LoginViewModel()), isActive: $showLogin) {
+                    EmptyView()
+                }
+                
+                Spacer()
+                
+                Button {
+                    signUpViewModel.signUpBtnClicked()
+                    isSignedUp = true
+                } label: {
+                    Text("Sign Up")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(.white)
+//                        .frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(LinearGradient(colors: [.blue, .red], startPoint: .leading, endPoint: .trailing))
+                .cornerRadius(20)
+                .padding()
+                
+                NavigationLink(destination: HomeView(homeViewModel: HomeViewModel()), isActive: $isSignedUp) {
+                    EmptyView()
                 }
             }
         }

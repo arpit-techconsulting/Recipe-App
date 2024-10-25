@@ -55,7 +55,10 @@ struct LoginView: View {
                                 .foregroundStyle(.red)
                         }
                         .padding(10)
-                        .border(.red)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.red, lineWidth: 2)
+                        }
                     }
                 }
                 
