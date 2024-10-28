@@ -12,10 +12,19 @@ struct LoginView: View {
     @State var showPassword: Bool = false
     @State var isLoggedIn: Bool = false
     @State var showSignUp: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
-                Spacer()
+                
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .padding(.bottom, 30)
+                    .foregroundStyle(.blue)
+                
+//                Spacer()
                 
                 VStack(alignment: .leading, spacing: 30) {
                     TextField(text: $loginViewModel.userName, prompt: Text( "Username").foregroundStyle(.blue)) {
@@ -72,12 +81,15 @@ struct LoginView: View {
                         .underline()
                 }
                 .padding(.top, 10)
+                .padding(.bottom, 10)
                 
-                NavigationLink(destination: SignUpView(signUpViewModel: SignUpViewModel()), isActive: $showSignUp) {
-                    EmptyView()
+                .navigationTitle("Login")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationDestination(isPresented: $showSignUp) {
+                    SignUpView(signUpViewModel: SignUpViewModel())
                 }
                 
-                Spacer()
+//                Spacer()
                 
                 Button {
                     loginViewModel.loginBtnClicked()
@@ -89,14 +101,15 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                 }
-                //            .frame(maxWidth: 300)
                 .frame(height: 50)
                 .background(LinearGradient(colors: [.blue, .red], startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(20)
                 
-                NavigationLink(destination: HomeView(homeViewModel: HomeViewModel()), isActive: $isLoggedIn) {
-                    EmptyView()
+                .navigationDestination(isPresented: $isLoggedIn) {
+                    HomeView(homeViewModel: HomeViewModel())
                 }
+                
+                Spacer()
             }
             .padding(30)
         }

@@ -12,6 +12,7 @@ struct SignUpView: View {
     @State var showPassword: Bool = false
     @State var showLogin: Bool = false
     @State var isSignedUp: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -105,8 +106,10 @@ struct SignUpView: View {
                         .underline()
                 }
                 
-                NavigationLink(destination: LoginView(loginViewModel: LoginViewModel()), isActive: $showLogin) {
-                    EmptyView()
+                .navigationTitle("Sign Up")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationDestination(isPresented: $showLogin) {
+                    LoginView(loginViewModel: LoginViewModel())
                 }
                 
                 Spacer()
@@ -119,7 +122,6 @@ struct SignUpView: View {
                         .font(.title2)
                         .bold()
                         .foregroundColor(.white)
-//                        .frame(maxWidth: .infinity)
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
@@ -127,8 +129,8 @@ struct SignUpView: View {
                 .cornerRadius(20)
                 .padding()
                 
-                NavigationLink(destination: HomeView(homeViewModel: HomeViewModel()), isActive: $isSignedUp) {
-                    EmptyView()
+                .navigationDestination(isPresented: $isSignedUp) {
+                    HomeView(homeViewModel: HomeViewModel())
                 }
             }
         }
