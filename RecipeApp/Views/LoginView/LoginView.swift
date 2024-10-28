@@ -24,11 +24,9 @@ struct LoginView: View {
                     .padding(.bottom, 30)
                     .foregroundStyle(.blue)
                 
-//                Spacer()
-                
                 VStack(alignment: .leading, spacing: 30) {
-                    TextField(text: $loginViewModel.userName, prompt: Text( "Username").foregroundStyle(.blue)) {
-                        Text("Username")
+                    TextField(text: $loginViewModel.userName, prompt: Text( "Email").foregroundStyle(.blue)) {
+                        Text("Email")
                     }
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
@@ -78,6 +76,7 @@ struct LoginView: View {
                         .font(.subheadline)
                         .font(.footnote)
                         .foregroundStyle(.blue)
+                        .fontWeight(.bold)
                         .underline()
                 }
                 .padding(.top, 10)

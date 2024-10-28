@@ -42,8 +42,8 @@ struct SignUpView: View {
                     }
                     .padding(10)
                     
-                    TextField(text: $signUpViewModel.userName, prompt: Text("Username").foregroundStyle(.blue)) {
-                        Text("Username")
+                    TextField(text: $signUpViewModel.userName, prompt: Text("Email").foregroundStyle(.blue)) {
+                        Text("Email")
                     }
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
@@ -103,6 +103,7 @@ struct SignUpView: View {
                         .font(.subheadline)
                         .font(.footnote)
                         .foregroundStyle(.blue)
+                        .fontWeight(.bold)
                         .underline()
                 }
                 
