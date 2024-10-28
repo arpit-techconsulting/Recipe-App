@@ -17,6 +17,12 @@ struct SignUpView: View {
         NavigationStack {
             VStack {
                 
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .foregroundStyle(.blue)
+                
                 VStack(alignment: .leading) {
                     TextField(text: $signUpViewModel.fName, prompt: Text("First Name").foregroundStyle(.blue)) {
                         Text("First Name")
