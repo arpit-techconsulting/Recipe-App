@@ -48,7 +48,7 @@ struct SignUpView: View {
                     }
                     .padding(10)
                     
-                    TextField(text: $signUpViewModel.userName, prompt: Text("Email").foregroundStyle(.blue)) {
+                    TextField(text: $signUpViewModel.email, prompt: Text("Email").foregroundStyle(.blue)) {
                         Text("Email")
                     }
                     .autocapitalization(.none)
@@ -62,8 +62,17 @@ struct SignUpView: View {
                     
                     HStack {
                         
-                        TextField(text: $signUpViewModel.password, prompt: Text("Password").foregroundStyle(.red)) {
-                            Text("Password")
+                        Group {
+                            
+                            if showPassword {
+                                TextField(text: $signUpViewModel.password, prompt: Text("Password").foregroundStyle(.red)) {
+                                    Text("Password")
+                                }
+                            } else {
+                                SecureField(text: $signUpViewModel.password, prompt: Text("Password").foregroundStyle(.red)) {
+                                    Text("Password")
+                                }
+                            }
                         }
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
@@ -89,7 +98,7 @@ struct SignUpView: View {
                     }
                     .padding(.trailing, 10)
                     
-                    TextField(text: $signUpViewModel.password, prompt: Text("Retype Password").foregroundStyle(.red)) {
+                    SecureField(text: $signUpViewModel.retypePassword, prompt: Text("Retype Password").foregroundStyle(.red)) {
                         Text("Password")
                     }
                     .autocapitalization(.none)
@@ -109,7 +118,7 @@ struct SignUpView: View {
                         .font(.subheadline)
                         .font(.footnote)
                         .foregroundStyle(.blue)
-                        .fontWeight(.bold)
+                        .fontWeight(.semibold)
                         .underline()
                 }
                 
