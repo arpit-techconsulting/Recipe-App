@@ -12,6 +12,7 @@ struct LoginView: View {
     @State var showPassword: Bool = false
     @State var isLoggedIn: Bool = false
     @State var showSignUp: Bool = false
+    @State var showAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -25,7 +26,7 @@ struct LoginView: View {
                     .foregroundStyle(.blue)
                 
                 VStack(alignment: .leading, spacing: 30) {
-                    TextField(text: $loginViewModel.userName, prompt: Text( "Email").foregroundStyle(.blue)) {
+                    TextField(text: $loginViewModel.email, prompt: Text( "Email").foregroundStyle(.blue)) {
                         Text("Email")
                     }
                     .autocapitalization(.none)
@@ -76,7 +77,7 @@ struct LoginView: View {
                         .font(.subheadline)
                         .font(.footnote)
                         .foregroundStyle(.blue)
-                        .fontWeight(.bold)
+                        .fontWeight(.semibold)
                         .underline()
                 }
                 .padding(.top, 10)
@@ -88,11 +89,16 @@ struct LoginView: View {
                     SignUpView(signUpViewModel: SignUpViewModel())
                 }
                 
-//                Spacer()
+                //                Spacer()
                 
                 Button {
-                    loginViewModel.loginBtnClicked()
-                    isLoggedIn = true
+                    loginViewModel.loginBtnClicked {success in
+                        if !success {
+                            showAlert = true
+                        } else {
+                            isLoggedIn = true
+                        }
+                    }
                 } label: {
                     Text("Login")
                         .font(.title2)
@@ -108,10 +114,17 @@ struct LoginView: View {
                     HomeView(homeViewModel: HomeViewModel())
                 }
                 
-                Spacer()
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"),
+                          message: Text(loginViewModel.errorMessage ?? "Unknown Error"),
+                          dismissButton: .default(Text("OK")))
+                }
+                
             }
-            .padding(30)
+            
+            Spacer()
         }
+        .padding(30)
     }
 }
 

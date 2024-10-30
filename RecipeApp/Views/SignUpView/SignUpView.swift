@@ -12,10 +12,17 @@ struct SignUpView: View {
     @State var showPassword: Bool = false
     @State var showLogin: Bool = false
     @State var isSignedUp: Bool = false
+    @State var showAlert: Bool = false
     
     var body: some View {
         NavigationStack {
             VStack {
+                
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .foregroundStyle(.blue)
                 
                 VStack(alignment: .leading) {
                     TextField(text: $signUpViewModel.fName, prompt: Text("First Name").foregroundStyle(.blue)) {
@@ -42,7 +49,7 @@ struct SignUpView: View {
                     }
                     .padding(10)
                     
-                    TextField(text: $signUpViewModel.userName, prompt: Text("Email").foregroundStyle(.blue)) {
+                    TextField(text: $signUpViewModel.email, prompt: Text("Email").foregroundStyle(.blue)) {
                         Text("Email")
                     }
                     .autocapitalization(.none)
@@ -56,8 +63,17 @@ struct SignUpView: View {
                     
                     HStack {
                         
-                        TextField(text: $signUpViewModel.password, prompt: Text("Password").foregroundStyle(.red)) {
-                            Text("Password")
+                        Group {
+                            
+                            if showPassword {
+                                TextField(text: $signUpViewModel.password, prompt: Text("Password").foregroundStyle(.red)) {
+                                    Text("Password")
+                                }
+                            } else {
+                                SecureField(text: $signUpViewModel.password, prompt: Text("Password").foregroundStyle(.red)) {
+                                    Text("Password")
+                                }
+                            }
                         }
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
@@ -83,7 +99,7 @@ struct SignUpView: View {
                     }
                     .padding(.trailing, 10)
                     
-                    TextField(text: $signUpViewModel.password, prompt: Text("Retype Password").foregroundStyle(.red)) {
+                    SecureField(text: $signUpViewModel.retypePassword, prompt: Text("Retype Password").foregroundStyle(.red)) {
                         Text("Password")
                     }
                     .autocapitalization(.none)
@@ -103,7 +119,7 @@ struct SignUpView: View {
                         .font(.subheadline)
                         .font(.footnote)
                         .foregroundStyle(.blue)
-                        .fontWeight(.bold)
+                        .fontWeight(.semibold)
                         .underline()
                 }
                 
@@ -116,15 +132,21 @@ struct SignUpView: View {
                 Spacer()
                 
                 Button {
-                    signUpViewModel.signUpBtnClicked()
-                    isSignedUp = true
+                    signUpViewModel.signUpBtnClicked {success in
+                        if success {
+                            isSignedUp = true
+                        } else {
+                            showAlert = true
+                        }
+                    }
+                    
                 } label: {
                     Text("Sign Up")
                         .font(.title2)
                         .bold()
                         .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .infinity)
                 .frame(height: 50)
                 .background(LinearGradient(colors: [.blue, .red], startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(20)
@@ -132,6 +154,12 @@ struct SignUpView: View {
                 
                 .navigationDestination(isPresented: $isSignedUp) {
                     HomeView(homeViewModel: HomeViewModel())
+                }
+                
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"),
+                          message: Text(signUpViewModel.errorMessage ?? "Unknown Error"),
+                          dismissButton: .default(Text("OK")))
                 }
             }
         }

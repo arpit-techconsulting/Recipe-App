@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2B9242842CD2C782007D99FE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2B9242832CD2C782007D99FE /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		2BFBA4F62CC2A77100A72EC8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B9242842CD2C782007D99FE /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +130,7 @@
 			);
 			name = RecipeApp;
 			packageProductDependencies = (
+				2B9242832CD2C782007D99FE /* FirebaseFirestore */,
 			);
 			productName = RecipeApp;
 			productReference = 2BFBA4E02CC2A76F00A72EC8 /* RecipeApp.app */;
@@ -208,6 +214,9 @@
 			);
 			mainGroup = 2BFBA4D72CC2A76F00A72EC8;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2B9242822CD2C782007D99FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2BFBA4E12CC2A76F00A72EC8 /* Products */;
 			projectDirPath = "";
@@ -573,6 +582,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2B9242822CD2C782007D99FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2B9242832CD2C782007D99FE /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B9242822CD2C782007D99FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2BFBA4D82CC2A76F00A72EC8 /* Project object */;
 }
