@@ -12,6 +12,7 @@ struct SignUpView: View {
     @State var showPassword: Bool = false
     @State var showLogin: Bool = false
     @State var isSignedUp: Bool = false
+    @State var showAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -131,15 +132,21 @@ struct SignUpView: View {
                 Spacer()
                 
                 Button {
-                    signUpViewModel.signUpBtnClicked()
-                    isSignedUp = true
+                    signUpViewModel.signUpBtnClicked {success in
+                        if success {
+                            isSignedUp = true
+                        } else {
+                            showAlert = true
+                        }
+                    }
+                    
                 } label: {
                     Text("Sign Up")
                         .font(.title2)
                         .bold()
                         .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .infinity)
                 .frame(height: 50)
                 .background(LinearGradient(colors: [.blue, .red], startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(20)
@@ -147,6 +154,12 @@ struct SignUpView: View {
                 
                 .navigationDestination(isPresented: $isSignedUp) {
                     HomeView(homeViewModel: HomeViewModel())
+                }
+                
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"),
+                          message: Text(signUpViewModel.errorMessage ?? "Unknown Error"),
+                          dismissButton: .default(Text("OK")))
                 }
             }
         }

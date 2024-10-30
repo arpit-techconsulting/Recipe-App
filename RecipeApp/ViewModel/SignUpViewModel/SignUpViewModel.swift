@@ -14,11 +14,44 @@ class SignUpViewModel: ObservableObject {
     @Published var lName: String = ""
     @Published var password: String = ""
     @Published var retypePassword: String = ""
+    @Published var errorMessage: String?
     
     private var db = Firestore.firestore()
     
-    func signUpBtnClicked() {
+    func signUpBtnClicked(completion: @escaping (Bool) -> Void) {
 //        print("Sign Up button clicked")
+        guard password == retypePassword else {
+            errorMessage = "Password does not match"
+            completion(false)
+            return
+        }
+        
+        guard !email.isEmpty, !fName.isEmpty, !lName.isEmpty, !password.isEmpty, retypePassword.isEmpty else {
+            errorMessage = "Fields cannot be empty"
+            completion(false)
+            return
+        }
+        
+        db.collection("users").whereField("email", isEqualTo: email).getDocuments {[weak self] (query, error) in
+            if let error {
+                self?.errorMessage = "Error in checking email: \(error.localizedDescription)"
+                completion(false)
+                return
+            }
+            
+            if let document = query?.documents, !document.isEmpty {
+                self?.errorMessage = "This email ID is already registered."
+                completion(false)
+            } else {
+                self?.addUserToDatabase()
+                completion(true)
+            }
+        }
+        
+        errorMessage = nil
+    }
+    
+    private func addUserToDatabase() {
         let userData: [String: Any] = [
             "email": email,
             "firstName": fName,
