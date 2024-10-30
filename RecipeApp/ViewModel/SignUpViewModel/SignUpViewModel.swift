@@ -19,15 +19,15 @@ class SignUpViewModel: ObservableObject {
     private var db = Firestore.firestore()
     
     func signUpBtnClicked(completion: @escaping (Bool) -> Void) {
-//        print("Sign Up button clicked")
-        guard password == retypePassword else {
-            errorMessage = "Password does not match"
+        
+        if email.isEmpty || fName.isEmpty || password.isEmpty || retypePassword.isEmpty {
+            errorMessage = "Fields cannot be empty"
             completion(false)
             return
         }
         
-        guard !email.isEmpty, !fName.isEmpty, !lName.isEmpty, !password.isEmpty, retypePassword.isEmpty else {
-            errorMessage = "Fields cannot be empty"
+        guard password == retypePassword else {
+            errorMessage = "Password does not match"
             completion(false)
             return
         }
