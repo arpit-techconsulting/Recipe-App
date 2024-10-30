@@ -20,7 +20,7 @@ class SignUpViewModel: ObservableObject {
     
     func signUpBtnClicked(completion: @escaping (Bool) -> Void) {
         
-        if email.isEmpty || fName.isEmpty || password.isEmpty || retypePassword.isEmpty {
+        if email.isEmpty || fName.isEmpty || lName.isEmpty || password.isEmpty || retypePassword.isEmpty {
             errorMessage = "Fields cannot be empty"
             completion(false)
             return
@@ -32,14 +32,14 @@ class SignUpViewModel: ObservableObject {
             return
         }
         
-        db.collection("users").whereField("email", isEqualTo: email).getDocuments {[weak self] (query, error) in
+        db.collection("users").whereField("email", isEqualTo: email).getDocuments {[weak self] (snapshot, error) in
             if let error {
                 self?.errorMessage = "Error in checking email: \(error.localizedDescription)"
                 completion(false)
                 return
             }
             
-            if let document = query?.documents, !document.isEmpty {
+            if let documents = snapshot?.documents, !documents.isEmpty {
                 self?.errorMessage = "This email ID is already registered."
                 completion(false)
             } else {
